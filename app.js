@@ -23,20 +23,34 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });     
 
-app.get("/testListing" , async (req ,res ) =>{
 
-  let sampleListing = new Listing({
-    title: "Sample Listing",
-    description: "This is a sample listing.",
-    price: 100,
-    location: "xyz",
-    country: "xyz"
-  });
-  await sampleListing.save()
-  console.log("Sample listing saved to the database");
-  console.log(sampleListing);
-  res.send("Sample listing saved to the database");
-}); 
+
+
+app.get("/listings" , async (req ,res ) =>{
+  const allistings = await  Listing.find({}).
+  console.log("listings fetched successfully");
+  res.render("index.ejs", { listings: allistings });
+});
+
+
+
+  
+
+
+// app.get("/testListing" , async (req ,res ) =>{
+
+//   let sampleListing = new Listing({
+//     title: "Sample Listing",
+//     description: "This is a sample listing.",
+//     price: 100,
+//     location: "xyz",
+//     country: "xyz"
+//   });
+//   await sampleListing.save()
+//   console.log("Sample listing saved to the database");
+//   console.log(sampleListing);
+//   res.send("Sample listing saved to the database");
+// }); 
 
 
 // Start the server
