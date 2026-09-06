@@ -2,6 +2,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Listing = require('./models/listing'); // Import the Listing model
+const path = require('path');
+
+
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 
 // MongoDB connection URI
@@ -27,9 +33,8 @@ app.get('/', (req, res) => {
 
 
 app.get("/listings" , async (req ,res ) =>{
-  const allistings = await  Listing.find({}).
-  console.log("listings fetched successfully");
-  res.render("index.ejs", { listings: allistings });
+  const allListings = await  Listing.find({});// Fetch all listings from the database and convert to plain JavaScript objects
+  res.render("listings/index.ejs", { allListings });
 });
 
 
