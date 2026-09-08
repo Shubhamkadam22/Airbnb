@@ -10,9 +10,7 @@
     <ul>
     <% for (let listing of allListings) { %>
         <li>
-            <h6><%= listing.title %></h6>
-            <p><%= listing.description %></p>
-            <p>Price: $<%= listing.price %></p>
+            <a href="/listings/<%= listing._id %>"><%= listing.title %></a>    
         </li>
     <% } %>
 </ul>

@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Listing = require('./models/listing'); // Import the Listing model
 const path = require('path');
 
-
+// Middleware to parse URL-encoded data
+app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -38,8 +39,11 @@ app.get("/listings" , async (req ,res ) =>{
 });
 
 
-
-  
+app.get("/listings/:id" , async (req ,res ) =>{
+  const { id } = req.params;
+  const listing = await Listing.findById(id);
+  res.render("listings/show.ejs", { listing });
+});
 
 
 // app.get("/testListing" , async (req ,res ) =>{
