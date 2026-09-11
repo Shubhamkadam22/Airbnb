@@ -50,6 +50,12 @@ app.get("/listings/:id/edit" , async (req ,res ) =>{
   const listing = await Listing.findById(id);
   res.render("listings/edit.ejs", { listing });
 });
+
+app.post("/listings/:id" , async (req ,res ) =>{
+  const { id } = req.params;
+  const updatedListing = await Listing.findByIdAndUpdate(id, req.body, { new: true });
+  res.redirect(`/listings/${updatedListing._id}`);
+});
   
 // app.get("/testListing" , async (req ,res ) =>{
 
