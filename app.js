@@ -3,7 +3,10 @@ const app = express();
 const mongoose = require('mongoose');
 const Listing = require('./models/listing'); // Import the Listing model
 const path = require('path');
+const methosOverride = require('method-override');
 
+// Middleware to override HTTP methods
+app.use(methosOverride('_method'));
 // Middleware to parse URL-encoded data
 app.use(express.urlencoded({ extended: true }));
 
@@ -38,6 +41,15 @@ app.get("/listings" , async (req ,res ) =>{
   res.render("listings/index.ejs", { allListings });
 });
 
+// New Route 
+
+
+app.get("/listings/new" , (req ,res ) =>{
+  res.render("listings/new.ejs");
+  
+});
+
+
 
 app.get("/listings/:id" , async (req ,res ) =>{
   const { id } = req.params;
@@ -45,33 +57,36 @@ app.get("/listings/:id" , async (req ,res ) =>{
   res.render("listings/show.ejs", { listing });
 });
 
+// create a new listing
+app.post("/listings" , async (req ,res ) =>{
+ const newListing =  new Listing (req.body.listing);
+ await newListing.save();
+ res.redirect("/listings");
+});
+
+
+//edit route 
 app.get("/listings/:id/edit" , async (req ,res ) =>{
   const { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/edit.ejs", { listing });
 });
 
-app.post("/listings/:id" , async (req ,res ) =>{
+
+//update route
+app.put("/listings/:id" , async (req ,res ) =>{
   const { id } = req.params;
-  const updatedListing = await Listing.findByIdAndUpdate(id, req.body, { new: true });
-  res.redirect(`/listings/${updatedListing._id}`);
+  await Listing.findByIdAndUpdate(id , { ...req.body.listing });
+  res.redirect(`/listings/${id}`);
 });
-  
-// app.get("/testListing" , async (req ,res ) =>{
 
-//   let sampleListing = new Listing({
-//     title: "Sample Listing",
-//     description: "This is a sample listing.",
-//     price: 100,
-//     location: "xyz",
-//     country: "xyz"
-//   });
-//   await sampleListing.save()
-//   console.log("Sample listing saved to the database");
-//   console.log(sampleListing);
-//   res.send("Sample listing saved to the database");
-// }); 
-
+//delete route
+app.delete("/listings/:id" , async (req ,res ) =>{
+  const { id } = req.params;
+  await Listing.findByIdAndDelete(id);
+  console.log(`Listing with ID ${id} has been deleted.`);
+  res.redirect("/listings");
+});
 
 // Start the server
 app.listen(8080 , () => {

@@ -8,22 +8,24 @@
 <body>
     <h3>Create a New Listing: </h3>
     <form action="/listings" method="POST">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
+       
+        <input name="listing[title]" type="text" id="title" ><br><br>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea><br><br>
+        <input name="listing[link]" type="text" id="link" placeholder="Enter a link to the image" ><br><br  >
+        
+        <textarea name="listing[description]" id="description" type="text" ></textarea>
+        <br> <br>        
+        <input name="listing[price]" type="number" id="price" >
+        <br> <br>
+        <input name="listing[country]" type="text" id="country" required><br><br>
 
-        <label for="price">Price (in INR):</label>
-        <input type="number" id="price" name="price" required><br><br>
+       
+        <input name="listing[location]" type="text" id="location" >
+        <br> <br>        
 
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required><br><br>
-
-        <label for="country">Country:</label>
-        <input type="text" id="country" name="country" required><br><br>
-
+        
+        <br>
+       <br> <br>
         <button type="submit">Create Listing</button>
-    </form>
 </body>
 </html>
