@@ -4,12 +4,15 @@ const mongoose = require('mongoose');
 const Listing = require('./models/listing'); // Import the Listing model
 const path = require('path');
 const methosOverride = require('method-override');
-
+const ejsMate= require('ejs-mate');
 // Middleware to override HTTP methods
 app.use(methosOverride('_method'));
 // Middleware to parse URL-encoded data
-app.use(express.urlencoded({ extended: true }));
 
+// to use static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
