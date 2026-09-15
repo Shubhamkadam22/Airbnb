@@ -1,3 +1,20 @@
-body {
+/* body {
     background-color: #bc8686;  
+} */
+
+
+.navbar {
+    background-color: #f8f9fa;
+    height: 5rem; 
+}
+
+.fa-house {
+    font-size: 2rem;
+    color: #4994f5;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    color: #222222 !important;
+    font-weight: 500 !important;
 }
