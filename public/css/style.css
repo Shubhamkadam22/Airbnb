@@ -81,8 +81,38 @@ flex: 1;
 
 }
 
-/*footer*/
-.footer{
-    
-    
+
+
+/* Remove default link underline and transition color on hover */
+.listing-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Card Interactive Hover Effect */
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Edit & Action Buttons Styling */
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+.edit-btn:hover {
+    background-color: #d93640 !important;
 }

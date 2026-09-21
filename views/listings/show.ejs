@@ -1,18 +1,38 @@
 <% layout('/layouts/boilerplate') %>
-<body>
-    <h3>Listing Details: </h3>
-    <ul>
-        <li><strong>Title:</strong> <%= listing.title %></li>
-        <li><strong>Description:</strong> <%= listing.description %></li>
-        <li><strong>Price:</strong> &#8377 <%= listing.price.toLocaleString("en-IN") %></li>
-        <li><strong>Location:</strong> <%= listing.location %></li>
-        <li><strong>Country:</strong> <%= listing.country %></li>
-    </ul>
-    <br>
-    <a href="/listings/<%= listing._id %>/edit">edit this listing</a>
-  
-    <br> <br>
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete Listing</button>
-  </form>
-</body>
+
+<div class="row mt-3 justify-content-center">
+    <div class="col-md-6 ">
+        <!-- Listing Title -->
+        <h3 class="mb-3"><b><%= listing.title %></b></h3>
+
+        <!-- Centered Listing Card Container -->
+        <div class="card show-card listing-card border-0 shadow-sm mx-auto mb-4">
+            <img 
+                src="<%= listing.image.url %>" 
+                class="card-img-top show-img rounded-4" 
+                alt="listing_image" 
+                style="height: 20rem; object-fit: cover;"
+            >
+            <div class="card-body pt-3">
+                <p class="card-text">
+                    <span class="text-muted d-block mb-2"><%= listing.description %></span>
+                    <h4 class="text-dark fw-bold">&#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> <span class="fs-6 fw-normal text-muted">/ night</span></h4>
+                    <p class="mb-1"><i class="fa-solid fa-location-dot me-2"></i><%= listing.location %>, <%= listing.country %></p>
+                </p>
+            </div>
+        </div>
+
+        <!-- Centered Action Buttons -->
+        <div class="d-flex gap-3 mb-5">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark px-4 py-2 edit-btn">
+                <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+            </a>
+            
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-outline-danger px-4 py-2">
+                    <i class="fa-solid fa-trash me-1"></i> Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

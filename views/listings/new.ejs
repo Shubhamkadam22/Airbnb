@@ -4,36 +4,43 @@
 <body>
     <br>
     <h3><b>Create a New Listing</b></h3>
-    <form action="/listings" method="POST">
+    <form action="/listings" method="POST" novalidate class="needs-validation">
 
         <div class="mb-3">
             <label for="title" class="form-label">Enter Title</label>
-            <input name="listing[title]" type="text" id="title" class="form-control">
+            <input name="listing[title]" type="text" id="title" class="form-control" required>
+            <div class="invalid-feedback">Please enter a title.</div>
         </div>
 
         <div class="mb-3">
              <label for="description" class="form-label">Enter Description</label>
-             <textarea name="listing[description]" id="description" class="form-control" rows="4"></textarea> 
+             <textarea name="listing[description]" id="description" class="form-control" rows="4" required></textarea> 
+             <div class="invalid-feedback">Please enter a short description.</div>
         </div>
  
         <div class="mb-3">
             <label for="link" class="form-label">Paste Image Link</label>
-            <input name="listing[image]" type="text" id="link" placeholder="Enter a link to the image" class="form-control">
+            <!-- Fixed input name to map to your schema object structure -->
+            <input name="listing[image][url]" type="text" id="link" placeholder="Enter a link to the image" class="form-control">
+            <div class="form-text text-muted">Leave blank to use the default image.</div>
         </div>
 
         <div class="mb-3">
             <label for="price" class="form-label">Enter Price</label>
-            <input name="listing[price]" type="number" id="price" class="form-control">
+            <input name="listing[price]" type="number" id="price" class="form-control" required>
+            <div class="invalid-feedback">Please enter a valid price.</div>
         </div>
 
         <div class="mb-3">
             <label for="country" class="form-label">Enter Country</label>
             <input name="listing[country]" type="text" id="country" required class="form-control">
+            <div class="invalid-feedback">Please enter a country.</div>
         </div>
 
        <div class="mb-3">
             <label for="location" class="form-label">Enter Location</label>
-            <input name="listing[location]" type="text" id="location" class="form-control">
+            <input name="listing[location]" type="text" id="location" class="form-control" required>
+            <div class="invalid-feedback">Please enter a location.</div>
        </div>
         <br>
         <button type="submit" class="btn btn-dark">Create Listing</button>
@@ -42,3 +49,20 @@
 </body>
 </div>
 </div>
+
+<!-- Bootstrap Form Validation Script -->
+<script>
+    (() => {
+      'use strict'
+      const forms = document.querySelectorAll('.needs-validation')
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+</script>

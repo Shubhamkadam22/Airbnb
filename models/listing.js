@@ -22,7 +22,7 @@ const listingSchema = new Schema({
       set: (v) => (v === "" ? DEFAULT_IMAGE_URL : v),
     },
   },
-  price: Number,
+  price: { type: Number, default: 0 },
   location: String,
   country: String,
 });
