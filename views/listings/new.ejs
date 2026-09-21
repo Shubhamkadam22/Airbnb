@@ -1,24 +1,44 @@
 <% layout('/layouts/boilerplate') %>
+<div class="row">
+<div class="col-8 offset-2">
 <body>
-    <h3>Create a New Listing: </h3>
+    <br>
+    <h3><b>Create a New Listing</b></h3>
     <form action="/listings" method="POST">
-       
-        <input name="listing[title]" type="text" id="title" ><br><br>
 
-        <input name="listing[link]" type="text" id="link" placeholder="Enter a link to the image" ><br><br  >
-        
-        <textarea name="listing[description]" id="description" type="text" ></textarea>
-        <br> <br>        
-        <input name="listing[price]" type="number" id="price" >
-        <br> <br>
-        <input name="listing[country]" type="text" id="country" required><br><br>
+        <div class="mb-3">
+            <label for="title" class="form-label">Enter Title</label>
+            <input name="listing[title]" type="text" id="title" class="form-control">
+        </div>
 
-       
-        <input name="listing[location]" type="text" id="location" >
-        <br> <br>        
+        <div class="mb-3">
+             <label for="description" class="form-label">Enter Description</label>
+             <textarea name="listing[description]" id="description" class="form-control" rows="4"></textarea> 
+        </div>
+ 
+        <div class="mb-3">
+            <label for="link" class="form-label">Paste Image Link</label>
+            <input name="listing[image]" type="text" id="link" placeholder="Enter a link to the image" class="form-control">
+        </div>
 
-        
+        <div class="mb-3">
+            <label for="price" class="form-label">Enter Price</label>
+            <input name="listing[price]" type="number" id="price" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="country" class="form-label">Enter Country</label>
+            <input name="listing[country]" type="text" id="country" required class="form-control">
+        </div>
+
+       <div class="mb-3">
+            <label for="location" class="form-label">Enter Location</label>
+            <input name="listing[location]" type="text" id="location" class="form-control">
+       </div>
         <br>
-       <br> <br>
-        <button type="submit">Create Listing</button>
+        <button type="submit" class="btn btn-dark">Create Listing</button>
+      <br><br>
+    </form>
 </body>
+</div>
+</div>
