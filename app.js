@@ -9,11 +9,8 @@ const wrapAsync = require('./utils/wrapAsync.js'); // Import the wrapAsync utili
 
 const ExpressError = require('./utils/expressError.js'); // Import the ExpressError class
 
-
-
-
-
-
+const {listingSchema} = require("./schema.js"); 
+const { func } = require('joi');
 
 // Middleware to override HTTP methods
 app.use(methosOverride('_method'));
@@ -46,7 +43,16 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });     
 
-
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+    
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(","); 
+    throw new ExpressError(400, errMsg); 
+  } else {
+    next(); 
+  }
+};
 
 
 app.get("/listings" , wrapAsync(async (req ,res ) =>{
@@ -72,11 +78,8 @@ app.get("/listings/:id" , wrapAsync(async (req ,res ) =>{
 
 // create a new listing
 app.post("/listings" ,
+  validateListing, 
    wrapAsync(async (req ,res , next) =>{
-
-    if(!req.body.listing) {
-      throw new ExpressError(400 , "Invalid Listing Data");
-    }
     const newListing =  new Listing (req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -93,7 +96,9 @@ app.get("/listings/:id/edit" , wrapAsync(async (req ,res ) =>{
 
 
 //update route
-app.put("/listings/:id" , wrapAsync(  async (req ,res ) =>{
+app.put("/listings/:id" ,
+  validateListing, 
+   wrapAsync(  async (req ,res ) =>{
   const { id } = req.params;
   await Listing.findByIdAndUpdate(id , { ...req.body.listing });
   res.redirect(`/listings/${id}`);
@@ -114,7 +119,9 @@ app.all(/.*/, (req, res, next) => {
 
 app.use((err, req, res, next) => {
   let {statusCode , message }  = err;
-    res.status(statusCode).send(message);
+  res.render("error.ejs" , {statusCode , message}); 
+  
+  // res.status(statusCode).send(message);
 });
 
 
