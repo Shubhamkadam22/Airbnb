@@ -42,9 +42,9 @@
         <hr>
      <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
 
-            <div class="mb-3 mt-3">
+            <div class="mb-3 mt-3" required>
                 <label for="rating" class="form-label">Rating</label>
-                <fieldset class="starability-slot">
+                <fieldset class="starability-slot" aria-required="">
                     <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
                     <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                     <label for="first-rate1" title="Terrible">1 star</label>
@@ -58,7 +58,7 @@
                     <label for="first-rate5" title="Amazing">5 stars</label>
                   </fieldset>
             </div>
-            
+          
             <div class="mb-3 mt-3">
                 <label for="comment" class="form-label">Comments</label>
                 <textarea 
@@ -68,11 +68,36 @@
                     cols="30"
                     class="form-control" 
                     required
+                
                 ></textarea>
+                 <div class="invalid-feedback">Please enter a short comment.</div>
             </div>
             
             <button type="submit" class="btn btn-outline-dark">Submit Review</button>
         </form>
+ <hr>
 
-    </div>
+    <p><b>All Reviews</b></p>
+
+<div class="row">
+    <% for(let review of listing.reviews) { %>
+        <!-- Added "position-relative" -->
+        <div class="card col-5 ms-3 mb-3 border border-secondary review-card position-relative">
+            <div class="card-body">
+                <p class="card-text"><%= review.comment %></p>
+                
+                <!-- Starability display inside the card -->
+                <p class="starability-result" data-rating="<%= review.rating %>">
+                    Rated: <%= review.rating %> stars
+                </p>
+
+                <!-- Delete Form -->
+                <form class="delete-form" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    <% } %>
 </div>
+</div>
+

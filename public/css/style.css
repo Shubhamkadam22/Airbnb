@@ -116,3 +116,19 @@ flex: 1;
 .edit-btn:hover {
     background-color: #d93640 !important;
 }
+
+/* Position the delete form in the top-right corner and hide it by default */
+.review-card .delete-form {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+/* Smoothly reveal the delete button only when hovering over the card */
+.review-card:hover .delete-form {
+    opacity: 0.8;
+    visibility: visible;
+}
