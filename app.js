@@ -6,11 +6,10 @@ const path = require('path');
 const methosOverride = require('method-override');
 const ejsMate= require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js'); // Import the wrapAsync utility
-
 const ExpressError = require('./utils/expressError.js'); // Import the ExpressError class
-
 const {listingSchema} = require("./schema.js"); 
 const { func } = require('joi');
+const Review = require("./models/review"); // Import the Listing model
 
 // Middleware to override HTTP methods
 app.use(methosOverride('_method'));
@@ -96,9 +95,7 @@ app.get("/listings/:id/edit" , wrapAsync(async (req ,res ) =>{
 
 
 //update route
-app.put("/listings/:id" ,
-  validateListing, 
-   wrapAsync(  async (req ,res ) =>{
+app.put("/listings/:id" ,validateListing, wrapAsync(  async (req ,res ) =>{
   const { id } = req.params;
   await Listing.findByIdAndUpdate(id , { ...req.body.listing });
   res.redirect(`/listings/${id}`);
@@ -112,16 +109,29 @@ app.delete("/listings/:id" , wrapAsync(async (req ,res ) =>{
   res.redirect("/listings");
 }));
 
+// review route 
+//post route 
+
+app.post("/listings/:id/reviews", async(req, res) => {
+  
+ let listing = await Listing.findById(req.params.id); 
+ let newReview = new Review(req.body.review); 
+
+ listing.reviews.push(newReview);
+
+ await newReview.save();
+ await listing.save(); 
+ res.redirect(`/listings/${listing._id}`);
+})
+
 
 app.all(/.*/, (req, res, next) => {
     next(new ExpressError(404, "Page Not Found!"));
 });
 
 app.use((err, req, res, next) => {
-  let {statusCode , message }  = err;
-  res.render("error.ejs" , {statusCode , message}); 
-  
-  // res.status(statusCode).send(message);
+    let { statusCode = 500, message = "Something went wrong!" } = err;
+    res.status(statusCode).render("error.ejs", { err });
 });
 
 
