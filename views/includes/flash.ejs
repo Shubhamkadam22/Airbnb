@@ -1,0 +1,32 @@
+<!-- <div class="alert alert-success" role="alert">
+    
+</div> -->
+
+<% if(success && success.length) { %>
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+    <div id="flashToast" class="toast align-items-center text-bg-success border-0 shadow-lg show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body fs-6 py-3 px-4">
+          <i class="fa-solid fa-circle-check me-2"></i> <%= success %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+
+<!-- error -->
+
+<% if(error && error.length) { %>
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+    <div id="errorToast" class="toast align-items-center text-bg-danger border-0 shadow-lg show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body fs-6 py-3 px-4">
+          <i class="fa-solid fa-circle-exclamation me-2"></i> <%= error %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+<% } %>
