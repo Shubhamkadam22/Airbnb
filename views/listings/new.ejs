@@ -1,68 +1,70 @@
 <% layout('/layouts/boilerplate') %>
-<div class="row">
-<div class="col-8 offset-2">
-<body>
-    <br>
-    <h3><b>Create a New Listing</b></h3>
-    <form action="/listings" method="POST" novalidate class="needs-validation">
 
-        <div class="mb-3">
-            <label for="title" class="form-label">Enter Title</label>
-            <input name="listing[title]" type="text" id="title" class="form-control" required>
-            <div class="invalid-feedback">Please enter a title.</div>
-        </div>
+<div class="row mt-4 mb-5 justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <!-- Form Card Container -->
+        <div class="newcard border-2 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+            
+            <!-- Header Section -->
+            <div class="mb-4 text-center text-md-start">
+                <h3 class="fw-bold text-dark mb-1 ">Create a New Listing</h3>
+                <p class="text-muted small">Fill in the details below to publish your unique space on Wanderlust.</p>
+            </div>
 
-        <div class="mb-3">
-             <label for="description" class="form-label">Enter Description</label>
-             <textarea name="listing[description]" id="description" class="form-control" rows="4" required></textarea> 
-             <div class="invalid-feedback">Please enter a short description.</div>
-        </div>
- 
-        <div class="mb-3">
-            <label for="link" class="form-label">Paste Image Link</label>
-            <!-- Fixed input name to map to your schema object structure -->
-            <input name="listing[image][url]" type="text" id="link" placeholder="Enter a link to the image" class="form-control">
-            <div class="form-text text-muted">Leave blank to use the default image.</div>
-        </div>
+            <form action="/listings" method="POST" novalidate class="needs-validation">
 
-        <div class="mb-3">
-            <label for="price" class="form-label">Enter Price</label>
-            <input name="listing[price]" type="number" id="price" class="form-control" required>
-            <div class="invalid-feedback">Please enter a valid price.</div>
-        </div>
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold text-secondary small">Title</label>
+                    <input name="listing[title]" type="text" id="title" placeholder="Catchy title (e.g., Luxury Beachfront Villa)" class="form-control rounded-3 py-2" required>
+                    <div class="invalid-feedback">Please enter a title.</div>
+                </div>
 
-        <div class="mb-3">
-            <label for="country" class="form-label">Enter Country</label>
-            <input name="listing[country]" type="text" id="country" required class="form-control">
-            <div class="invalid-feedback">Please enter a country.</div>
-        </div>
+                <!-- Description -->
+                <div class="mb-3">
+                     <label for="description" class="form-label fw-semibold text-secondary small">Description</label>
+                     <textarea name="listing[description]" id="description" placeholder="Describe the vibe, amenities, and surroundings..." class="form-control rounded-3" rows="4" required></textarea> 
+                     <div class="invalid-feedback">Please enter a short description.</div>
+                </div>
+         
+                <!-- Image Link -->
+                <div class="mb-3">
+                    <label for="link" class="form-label fw-semibold text-secondary small">Image URL</label>
+                    <input name="listing[image][url]" type="text" id="link" placeholder="https://example.com/image.jpg" class="form-control rounded-3 py-2">
+                    <div class="form-text text-muted small">Leave blank to use the default platform image.</div>
+                </div>
 
-       <div class="mb-3">
-            <label for="location" class="form-label">Enter Location</label>
-            <input name="listing[location]" type="text" id="location" class="form-control" required>
-            <div class="invalid-feedback">Please enter a location.</div>
-       </div>
-        <br>
-        <button type="submit" class="btn btn-dark">Create Listing</button>
-      <br><br>
-    </form>
-</body>
+                <!-- Price and Country Grid Row -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="price" class="form-label fw-semibold text-secondary small">Price (per night)</label>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-start-3 bg-light border-end-0">&#8377;</span>
+                            <input name="listing[price]" type="number" id="price" placeholder="1500" class="form-control rounded-end-3 py-2 border-start-0" required>
+                            <div class="invalid-feedback">Please enter a valid price.</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label fw-semibold text-secondary small">Country</label>
+                        <input name="listing[country]" type="text" id="country" placeholder="India" required class="form-control rounded-3 py-2">
+                        <div class="invalid-feedback">Please enter a country.</div>
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="mb-4">
+                     <label for="location" class="form-label fw-semibold text-secondary small">Location</label>
+                     <input name="listing[location]" type="text" id="location" placeholder="Goa, Jaipur, Mumbai..." class="form-control rounded-3 py-2" required>
+                     <div class="invalid-feedback">Please enter a location.</div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-dark btn-lg rounded-pill fw-semibold py-2 shadow-sm">Publish Listing</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
 </div>
-</div>
-
-<!-- Bootstrap Form Validation Script -->
-<!-- <script>
-    (() => {
-      'use strict'
-      const forms = document.querySelectorAll('.needs-validation')
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-          form.classList.add('was-validated')
-        }, false)
-      })
-    })()
-</script> -->

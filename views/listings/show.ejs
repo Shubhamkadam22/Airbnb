@@ -1,42 +1,73 @@
 <% layout('/layouts/boilerplate') %>
 
-<div class="row mt-3 justify-content-center">
-    <div class="col-md-6 ">
-        <!-- Listing Title -->
-        <h3 class="mb-3"><b><%= listing.title %></b></h3>
+<div class="row mt-4 mb-5 justify-content-center">
+    <div class="col-lg-6 ">
+        <!-- Listing Title & Location Header -->
+        <div class="mb-3">
+            <h2 class="fw-bold text-dark mb-2"><%= listing.title %></h2>
+            <p class="text-muted small mb-0">
+                <i class="fa-solid fa-location-dot me-1 text-danger"></i> <%= listing.location %>, <%= listing.country %>
+            </p>
+        </div>
 
-        <!-- Centered Listing Card Container -->
-        <div class="card show-card listing-card border-0 shadow-sm mx-auto mb-4">
+        <!-- Listing Card Container -->
+        <div class="card show-card listing-card border-0 shadow-sm rounded-4 mb-4 overflow-hidden bg-white">
             <img 
                 src="<%= listing.image.url %>" 
-                class="card-img-top show-img rounded-4" 
+                class="card-img-top show-img" 
                 alt="listing_image" 
-                style="height: 20rem; object-fit: cover;"
+                style="height: 24rem; object-fit: cover;"
             >
-            <div class="card-body pt-3">
-                <p class="card-text">
-                    <span class="text-muted d-block mb-2"><%= listing.description %></span>
-                    <h4 class="text-dark fw-bold">&#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> <span class="fs-6 fw-normal text-muted">/ night</span></h4>
-                    <p class="mb-1"><i class="fa-solid fa-location-dot me-2"></i><%= listing.location %>, <%= listing.country %></p>
+            <div class="card-body p-4">
+                <!-- Host / Owner Info Badge -->
+                <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                    <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center fw-bold me-3 shadow-sm" style="width: 45px; height: 45px; font-size: 1.1rem;">
+                        <%= listing.owner && listing.owner.username ? listing.owner.username.charAt(0).toUpperCase() : 'H' %>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 fw-semibold text-dark">Hosted by <%= listing.owner ? listing.owner.username : 'Anonymous' %></h6>
+                        <small class="text-muted">Verified Property Host</small>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <p class="card-text text-secondary mb-4" style="line-height: 1.6;">
+                    <%= listing.description %>
                 </p>
+
+                <!-- Price Section -->
+                <div class="d-flex align-items-baseline justify-content-between pt-2">
+                    <div>
+                        <span class="fs-4 fw-bold text-dark">&#8377; <%= (listing.price || 0).toLocaleString("en-IN") %></span>
+                        <span class="text-muted small"> / night</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Centered Action Buttons -->
-        <div class="d-flex gap-3 mb-5">
-            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark px-4 py-2 edit-btn">
-                <i class="fa-solid fa-pen-to-square me-1"></i> Edit
-            </a>
-            
-            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
-                <button type="submit" class="btn btn-outline-danger px-4 py-2">
-                    <i class="fa-solid fa-trash me-1"></i> Delete
-                </button>
-            </form>
-        </div>
-    </div>
+        <!-- Owner Management Section (Visible ONLY if current user is the author) -->
+        <% if (currUser && listing.owner && listing.owner._id.equals(currUser._id)) { %>
 
-    <div class="col-8 offset-2 mb-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-light">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <span class="text-muted small fw-medium ps-2">Manage your property:</span>
+                    <div class="d-flex gap-2">
+                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold shadow-sm" style="font-size: 0.85rem;">
+                            <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+                        </a>
+                        <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold shadow-sm" style="font-size: 0.85rem;">
+                                <i class="fa-solid fa-trash me-1"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+    <div class="col-lg-6  offset-3 mb-3">
         <h4 class="mb-3"><b>Leave a Review</b></h4>
        
         <hr>

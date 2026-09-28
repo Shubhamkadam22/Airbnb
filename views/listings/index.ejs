@@ -1,29 +1,34 @@
 <% layout('/layouts/boilerplate') %>
-<body>
-    <br>
-    <h2>Welcome to Wanderlust</h2><br>
-    <p>Discover your next adventure with our curated listings of unique stays and experiences around the</p>
-    <br>
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
-<% for (let listing of allListings) { %>
-  <a href="/listings/<%= listing._id %>" class="listing-link">
-<div class="card col listing-card border-0 shadow-sm h-100">
-  <img 
-  src="<%= listing.image.url %>" 
-  class="card-img-top rounded-4" 
-  alt="listing image" 
-  style="height: 20rem; object-fit: cover;">
-  <div class="card-img-overlay"></div>
-  <div class="card-body px-0 pt-2">
-    <p class="card-text">
-        <strong><%= listing.title %></strong> <br>
-        &#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> / night
-    </p>
-  </div>
+<!-- max-width constraint mimics a zoomed-out view on large monitors -->
+<div class="container-fluid px-4 px-lg-5 my-4 mx-auto" style="max-width: 1350px;">
+    <!-- Header Section -->
+    <div class="mb-4">
+        <h2 class="fw-bold fs-4">Welcome to Wanderlust</h2>
+        <p class="text-muted small">Discover your next adventure with our curated listings of unique stays and experiences.</p>
+    </div>
+
+    <!-- Listings Grid -->
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+        <% for (let listing of allListings) { %>
+            <div class="col">
+                <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none">
+                    <div class="card listing-card border-0 shadow-sm h-100 bg-transparent">
+                        <img 
+                            src="<%= listing.image.url %>" 
+                            class="card-img-top rounded-4" 
+                            alt="listing image" 
+                            style="height: 16rem; object-fit: cover;"
+                        >
+                        <div class="card-body px-0 pt-2">
+                            <p class="card-text text-dark" style="font-size: 0.88rem;">
+                                <strong><%= listing.title %></strong> <br>
+                                <span class="text-muted">&#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> / night</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    </div>
 </div>
-  </a> 
-<br>  
- <% } %>
-</div>
-</body>

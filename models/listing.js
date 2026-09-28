@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('./review.js');
+const User = require("./user"); // Make sure this is at the top of models/listing.js
 const DEFAULT_IMAGE_URL =
   "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dmlsbGF8ZW58MHx8MHx8fDA%3D";
 
@@ -29,9 +30,13 @@ const listingSchema = new Schema({
     {
       type: Schema.Types.ObjectId, 
       ref: "Review"
-    }
+    },
 
-  ]
+  ],
+  owner: {
+    type: Schema.Types.ObjectId, 
+    ref: "User" 
+  }, 
 });
 
 

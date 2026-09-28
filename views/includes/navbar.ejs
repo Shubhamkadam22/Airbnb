@@ -1,14 +1,33 @@
-<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4">
-  <div class="container-fluid">
-    <a class="navbar-brand fs-4" href="/"><i class="fa-solid fa-house" style="color: #fe424d;"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" >
-      <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4 px-lg-5" style="padding-top: 4px; padding-bottom: 4px; font-size: 0.82rem;">
+  <div class="container-fluid p-0 mx-auto" style="max-width: 1350px;">
+    <!-- Brand / Logo -->
+    <a class="navbar-brand text-danger fs-6 m-1 p-1" href="/listings">
+      <i class="fa-solid fa-house"></i>
+    </a>
+
+    <!-- Toggler for mobile view -->
+    <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon" style="transform: scale(0.65);"></span>
     </button>
+
+    <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add Listing</a>
+      <!-- Left side links with a clean gap from the logo -->
+      <div class="navbar-nav me-auto ms-lg-4 gap-2">
+        <a class="nav-link px-2 py-0 text-secondary" href="/listings">Explore Listings</a>
+        <a class="nav-link px-2 py-0 text-secondary" href="/listings/new">Airbnb your home</a>
+      </div>
+
+      <!-- Right side auth links (Dynamic based on session state) -->
+      <div class="navbar-nav ms-auto gap-2 align-items-lg-center">
+        <% if (!currUser) { %>
+          <!-- Show when logged out -->
+          <a class="nav-link px-2 py-0 fw-semibold text-dark" href="/signup">Sign up</a>
+          <a class="btn btn-dark rounded-pill px-3 py-1 fw-semibold text-white ms-lg-2" href="/login" style="font-size: 0.78rem;">Log in</a>
+        <% } else { %>
+          <!-- Show when logged in -->
+          <a class="btn btn-outline-dark rounded-pill px-3 py-1 fw-semibold ms-lg-2" href="/logout" style="font-size: 0.78rem;">Log out</a>
+        <% } %>
       </div>
     </div>
   </div>
