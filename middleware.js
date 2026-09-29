@@ -1,3 +1,5 @@
+const Listing = require('./models/listing'); // Import the Listing model
+
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.redirectUrl = req.originalUrl; 
@@ -13,3 +15,11 @@ module.exports.saveRedirectUrl = (req , res  , next) => {
     }
     next();
 }
+
+// module.exports.isOwner =  async (req , res  , next) => {
+//   const { id } = req.params;
+//   let listing = await Listing.findById(id); 
+//   if (!listing.owner.locals(currUser._id)) {
+//   req.flash("success", "Listing Updated successfully"); 
+//   res.redirect(`/listings/${id}`);
+//   }}

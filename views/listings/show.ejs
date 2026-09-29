@@ -115,17 +115,23 @@
         <!-- Added "position-relative" -->
         <div class="card col-5 ms-3 mb-3 border border-secondary review-card position-relative">
             <div class="card-body">
-                <p class="card-text"><%= review.comment %></p>
+                
+               <!-- Display Review Author's Name Safely -->
+                <p class="card-text">
+              
+                    <b><%= review.comment %></b>
+                </p>
                 
                 <!-- Starability display inside the card -->
                 <p class="starability-result" data-rating="<%= review.rating %>">
                     Rated: <%= review.rating %> stars
                 </p>
-
+   
                 <!-- Delete Form -->
                 <form class="delete-form" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                     <button class="btn btn-sm btn-danger">Delete</button>
                 </form>
+              
             </div>
         </div>
     <% } %>

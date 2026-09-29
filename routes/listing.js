@@ -26,7 +26,10 @@ router.get("/" , wrapAsync(async (req ,res ) =>{
 // New Route 
 
 
-router.get("/new", isLoggedIn, (req, res) => {
+router.get("/new", 
+  isLoggedIn, 
+ 
+   (req, res) => {
     res.render("listings/new.ejs");
 });
 
@@ -34,7 +37,6 @@ router.get("/new", isLoggedIn, (req, res) => {
 router.get("/:id", wrapAsync(async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findById(id).populate("reviews").populate("owner");
-  
   if (!listing) {
     req.flash("error", "Listing does not exist");
     return res.redirect("/listings"); // Stops execution here and redirects safely
@@ -46,6 +48,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 // create a new listing
 router.post("/" ,
   isLoggedIn,
+
   validateListing, 
    wrapAsync(async (req ,res , next) =>{
     const newListing =  new Listing (req.body.listing);
@@ -58,7 +61,9 @@ router.post("/" ,
 
 
 //edit route 
-router.get("/:id/edit" , isLoggedIn, wrapAsync(async (req ,res ) =>{
+router.get("/:id/edit" , isLoggedIn, 
+  
+  wrapAsync(async (req ,res ) =>{
   const { id } = req.params;
   const listing = await Listing.findById(id);
   req.flash("success", "Listing edit successfully"); 
@@ -67,15 +72,17 @@ router.get("/:id/edit" , isLoggedIn, wrapAsync(async (req ,res ) =>{
 
 
 //update route
-router.put("/:id" ,validateListing,  isLoggedIn, wrapAsync(  async (req ,res ) =>{
+router.put("/:id" ,validateListing,  isLoggedIn, 
+  wrapAsync(  async (req ,res ) =>{
   const { id } = req.params;
+  let listing = await Listing.findById(id); 
   await Listing.findByIdAndUpdate(id , { ...req.body.listing });
   req.flash("success", "Listing Updated successfully"); 
   res.redirect(`/listings/${id}`);
 }));
 
 //delete route
-router.delete("/:id" , isLoggedIn,  wrapAsync(async (req ,res ) =>{
+router.delete("/:id" , isLoggedIn,   wrapAsync(async (req ,res ) =>{
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   console.log(`Listing with ID ${id} has been deleted.`);
