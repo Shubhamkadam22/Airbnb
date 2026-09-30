@@ -68,6 +68,7 @@
 </div>
 
     <div class="col-lg-6  offset-3 mb-3">
+        <% if(currUser) { %>
         <h4 class="mb-3"><b>Leave a Review</b></h4>
        
         <hr>
@@ -106,6 +107,7 @@
             
             <button type="submit" class="btn btn-outline-dark">Submit Review</button>
         </form>
+        <% } %>
  <hr>
 
     <p><b>All Reviews</b></p>
@@ -118,7 +120,7 @@
                 
                <!-- Display Review Author's Name Safely -->
                 <p class="card-text">
-              
+                       <i> <%= review.author.username %></i> <br>
                     <b><%= review.comment %></b>
                 </p>
                 
@@ -127,11 +129,11 @@
                     Rated: <%= review.rating %> stars
                 </p>
    
-                <!-- Delete Form -->
+           <% if (currUser && review.author && review.author._id.equals(currUser._id)) { %>     <!-- Delete Form -->
                 <form class="delete-form" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                     <button class="btn btn-sm btn-danger">Delete</button>
                 </form>
-              
+                <% } %> 
             </div>
         </div>
     <% } %>

@@ -56,18 +56,6 @@ app.use((req , res , next) => {
 })
 
 
-// app.get("/demouser", async (req, res) => {
-//     try {
-//         let fakeUser = new User({
-//             email: "student@gmail.com",
-//             username: "sigma student" // Note: Check if your schema uses 'username' or 'usrname'
-//         });
-        
-//         let registeredUser = await User.register(fakeUser, "helloworld");
-//         
-//     }
-// });
-
 const  MONGO_URI = "mongodb://127.0.0.1:27017/wanderlust";     // MongoDB connection URI
 async function main() {
     await mongoose.connect(MONGO_URI);
